@@ -1,3 +1,31 @@
-class Solution:
-    def uniformArray(self, nums1: list[int]) -> bool:
-        return True
+class Solution(object):
+    def firstStableIndex(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        n = len(nums)
+
+        prefixMax = [0]*n
+        suffixMin = [0]*n
+
+        #prefixMax
+        prefixMax[0] = nums[0]
+        for i in range(1,n):
+            prefixMax[i] = max(prefixMax[i - 1], nums[i]) 
+
+        #suffixMin
+        suffixMin[n - 1] = nums[n - 1]
+        for j in range(n - 2, -1, -1):
+            suffixMin[j] = min(suffixMin[j + 1], nums[j])
+
+
+        #instability score
+
+        for i in range(n):
+            instability = prefixMax[i] - suffixMin[i]
+
+            if instability <= k:
+                return i
+        return -1
