@@ -1,17 +1,21 @@
-class Solution {
-    public int countCommas(int n) {
-        if(n<1000){
-            return 0;
-        }
-        int result =0;
-        for (int i=1000; i<=n; i++){
-            int len=String.valueOf(Math.abs(i)).length();
-            int temp= (int) (len-1)/3;
-            result+=temp;
-        }
-        
-        return result;
-
+    class Solution {
+        public long countCommas(long n) {
+            long result=0;
+            if (n>=1000){
+                result+=Math.min(n,999999)-1000+1;
+            }
+            if (n>=1000000){
+                result+=(Math.min(n,999999999)-1000000+1)*2;
+            }
+            if (n>=1000000000l){
+                result+=(Math.min(n,999999999999l)-1000000000l+1)*3;
+            }
+            if (n>=1000000000000l){
+                result+=(Math.min(n,999999999999999l)-1000000000000l+1)*4;
+            }
+            if (n>=1000000000000000l){
+                result+=(Math.min(n,999999999999999999l)-1000000000000000l+1)*5;
+            }
+            return result;
     }
-
 }
