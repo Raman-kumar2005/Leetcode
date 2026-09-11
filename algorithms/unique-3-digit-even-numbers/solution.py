@@ -1,47 +1,18 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
-    def averageOfSubtree(self, root: TreeNode) -> int:
-        from collections import deque
-        def bfs(start):
-            q=deque([start])
-            visited=set()
-            l=[]
-            while q:
-                node=q.popleft()
+    def totalNumbers(self, digits: List[int]) -> int:
+        d={}
+        for i in digits:
+            if i in d:
+                d[i]+=1
+            else:
+                d[i]=1
+        count=0
+        for i in range(100,999,2):
+            s=str(i)
+            a=int(str(i)[0])
+            b=int(str(i)[1])
+            c=int(str(i)[2])
+            if (d.get(a, 0) >= s.count(str(a))) and (d.get(b, 0) >= s.count(str(b))) and (d.get(c, 0) >= s.count(str(c))):
+                count+=1
                 
-                visited.add(node)
-
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-                l.append(node.val)
-            return l
-        def get_node(start):
-            q=deque([start])
-            visited=set()
-            l=[]
-            while q:
-                node=q.popleft()
-                
-                visited.add(node)
-
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-                l.append(node)
-            return l
-        l1=get_node(root)
-        result=0
-        for node in l1:
-            values=bfs(node)
-            if node.val==sum(values)//len(values):
-                result+=1
-        return result
-            
+        return count
