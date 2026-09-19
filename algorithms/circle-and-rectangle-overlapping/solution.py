@@ -1,18 +1,22 @@
 class Solution:
-    def totalNumbers(self, digits: List[int]) -> int:
-        d={}
-        for i in digits:
-            if i in d:
-                d[i]+=1
-            else:
-                d[i]=1
-        count=0
-        for i in range(100,999,2):
-            s=str(i)
-            a=int(str(i)[0])
-            b=int(str(i)[1])
-            c=int(str(i)[2])
-            if (d.get(a, 0) >= s.count(str(a))) and (d.get(b, 0) >= s.count(str(b))) and (d.get(c, 0) >= s.count(str(c))):
-                count+=1
-                
-        return count
+    def checkOverlap(self, radius: int, xCenter: int, yCenter: int, x1: int, y1: int, x2: int, y2: int) -> bool:
+        if xCenter<x1:
+            close_x=x1
+        elif xCenter>x2:
+            close_x=x2
+        else:
+            close_x=xCenter
+
+        if yCenter<y1:
+            close_y=y1
+        elif yCenter>y2:
+            close_y=y2
+        else:
+            close_y=yCenter
+
+        dist_x=abs(close_x-xCenter)
+        dist_y=abs(close_y-yCenter)
+
+        if (dist_x**2+ dist_y**2)<=radius**2:
+            return True
+        return False
