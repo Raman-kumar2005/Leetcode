@@ -1,9 +1,4 @@
 # Write your MySQL query statement below
-SELECT name 
-FROM Employee 
-WHERE id IN (
-    SELECT managerId 
-    FROM Employee 
-    GROUP BY managerId 
-    HAVING COUNT(*) >= 5
-);
+select distinct author_id as id from views
+where author_id = viewer_id
+order by author_id asc;
