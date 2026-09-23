@@ -2,7 +2,7 @@
 
 **Difficulty:** Easy
 
-**Language:** Java
+**Language:** MySQL
 
 ## Problem
 
