@@ -1,13 +1,13 @@
 class Solution:
-    def maxDepth(self, s: str) -> int:
-        depth_list=[0]
-        
-        count=0
-        for i in s:
-            if i=="(":
-                count+=1
-                depth_list.append(count)
-            elif i==")":
-                count-=1
-                depth_list.append(count)
-        return max(depth_list)
+    def maxDepthAfterSplit(self, seq: str) -> list[int]:
+        l=[]
+        depth=0
+        for i in seq:
+
+            if i =="(":
+                depth+=1
+                l.append(depth%2)
+            else:
+                l.append(depth%2)
+                depth-=1
+        return l
