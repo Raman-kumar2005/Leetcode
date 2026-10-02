@@ -1,69 +1,26 @@
-import java.util.HashMap;
-import java.util.Map;
-
-class MyStack {  
-    char[] stack; 
-    int top;
-
-    public MyStack(int capacity) {
-        this.stack = new char[capacity];
-        top = -1;
-    }
-
-    public void push(char data) {
-        if ((top + 1) == stack.length) {
-            System.out.println("Stack overflow");
-            return;
-        }
-        top++;
-        stack[top] = data;
-    }
-
-    public char pop() {
-        if (top == -1) {
-            System.out.println("Stack is empty");
-            return '\0'; 
-        }
-        char item = stack[top]; 
-        top--;
-        return item;
-    }
-    
-    public char peek() {
-        if (top == -1) {
-            return '\0'; 
-        }
-        return stack[top];
-    }
-    
-    public boolean isEmpty() {
-        return top == -1;
-    }
-}
-
 class Solution {
-    public boolean isValid(String s) { 
-        MyStack stack = new MyStack(s.length()); 
+    
+    public List<String> generateParenthesis(int n) {
+        List<String> result =new ArrayList<>();
+        backtrack(n, n, "", result);
+        return result;
         
-        Map<Character, Character> matching = new HashMap<>();
-        matching.put(')', '('); 
-        matching.put(']', '[');
-        matching.put('}', '{');
         
-        for (int i = 0; i < s.length(); i++) { 
-            char current = s.charAt(i); 
-            
-            
-            if (current == '(' || current == '{' || current == '[') {
-                stack.push(current);
-            } else {
-                if (stack.isEmpty() || stack.peek() != matching.get(current)) {
-                    return false;
-                }
-                stack.pop(); 
-            }
-        }
-        
-        return stack.isEmpty();
     }
+    public void backtrack(int open, int close, String s, List<String> result){
+        
+            if (open==0 && close==0){
+                result.add(s);
+                return;
+            }
+            if (open>0){
+                backtrack(open-1,close,s+"(", result);
+            }
+            if (open<close){
+                backtrack(open,close-1,s+")", result);
+
+            }
+    }
+
+            
 }
