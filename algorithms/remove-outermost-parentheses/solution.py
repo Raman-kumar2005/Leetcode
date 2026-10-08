@@ -1,16 +1,18 @@
 class Solution:
-    def minAddToMakeValid(self, s: str) -> int:
+    def removeOuterParentheses(self, s: str) -> str:
+        my_list=[]
         stack=[]
-        ans=0
-        for i in s:
+        res=""
+        for i in  s:
             if i=="(":
-                stack.append("(")
+                stack.append(i)
+                res+=i
             else:
-                if stack:
-
-                    stack.pop()
-                else:
-                    ans+=1
-        return len(stack) + ans
+                stack.pop()
+                res+=i
+            if not stack:
+                n=len(res)
+                my_list.append(res[1:n-1])
+                res=""
             
-        
+        return "".join(my_list)
