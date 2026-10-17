@@ -1,8 +1,40 @@
 class Solution:
-    def sumOfSquares(self, nums: List[int]) -> int:
-        n=len(nums)
-        ans=0
+    def minSwaps(self, nums: list[int]) -> int:
+        
+        def digitSum(x):
+            total = 0
+            while x > 0:
+                total += x % 10
+                x //= 10
+            return total
+
+        n = len(nums)
+        
+        arr = []
         for i in range(n):
-            if n%(i+1)==0:
-                ans+=nums[i]**2
-        return ans
+            arr.append((digitSum(nums[i]), nums[i], i))
+            
+       
+        arr.sort()
+        
+        visited = [False] * n
+        swaps = 0
+        
+        for i in range(n):
+  
+            if visited[i] or arr[i][2] == i:
+                continue
+                
+            cycle_size = 0
+            j = i
+            
+          
+            while not visited[j]:
+                visited[j] = True
+                j = arr[j][2] 
+                cycle_size += 1
+                
+            if cycle_size > 0:
+                swaps += (cycle_size - 1)
+                
+        return swaps
