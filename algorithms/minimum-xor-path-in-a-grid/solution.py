@@ -1,16 +1,18 @@
 class Solution:
-    def createGrid(self, m: int, n: int) -> list[str]:
-        res1="."
-        res2="."
+    def minCost(self, grid: list[list[int]]) -> int:
+        m=len(grid)
+        n=len(grid[0])
+        dp=[[set() for i in range(n)] for j in range(m)]
+        dp[0][0].add(grid[0][0])
 
-        output=[]
-        for i in range(n-1):
-            res1+="#"
-            res2+="."
-        for i in range(m-1):
-            output.append(res1)
-        
-        output.append(res2)
-        return output
-        
-
+        for i in range(m):
+            for j in range(n):
+                if i==0 and j==0:
+                    continue
+                if i>0:
+                    for val in dp[i-1][j]:
+                        dp[i][j].add(val^grid[i][j])
+                if j>0:
+                    for val in dp[i][j-1]:
+                        dp[i][j].add(val^grid[i][j])
+        return min(dp[m-1][n-1])
