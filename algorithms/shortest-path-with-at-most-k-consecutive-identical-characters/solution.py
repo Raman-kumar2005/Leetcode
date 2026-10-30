@@ -1,18 +1,46 @@
 class Solution:
-    def minCost(self, grid: list[list[int]]) -> int:
-        m=len(grid)
-        n=len(grid[0])
-        dp=[[set() for i in range(n)] for j in range(m)]
-        dp[0][0].add(grid[0][0])
-
-        for i in range(m):
-            for j in range(n):
-                if i==0 and j==0:
+    def shortestPath(self, n: int, edges: List[List[int]], labels: str, k: int) -> int:
+        import heapq
+        def my_function(n,edges, labels,k):
+            tree={i:[] for i in range(len(labels))}
+            weight={}
+            for u,v,w in edges:
+                tree[u].append((v,w))
+            q=[]
+            heapq.heappush(q,(0,0,1))
+            visited={}
+            while q:
+                cost,node, count=heapq.heappop(q)
+                if node==n-1:
+                    return cost
+                if (node, count) in visited and visited[(node,count)]<=cost:
                     continue
-                if i>0:
-                    for val in dp[i-1][j]:
-                        dp[i][j].add(val^grid[i][j])
-                if j>0:
-                    for val in dp[i][j-1]:
-                        dp[i][j].add(val^grid[i][j])
-        return min(dp[m-1][n-1])
+                visited[(node, count)]=cost
+
+                for v,w in tree[node]:
+                    
+                    new_cost=cost+w
+                    next_cost=w+cost
+                    if labels[node]==labels[v]:
+                        new_count=count+1
+                    else:
+                        new_count=1
+                    
+                    if new_count<=k:
+                        heapq.heappush(q,(new_cost,v,new_count))
+
+
+            return -1
+        
+
+        return my_function(n,edges, labels,k)
+
+
+
+
+            
+            
+
+
+            
+
