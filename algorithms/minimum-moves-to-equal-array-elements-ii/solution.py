@@ -1,6 +1,8 @@
 class Solution:
-    def minMoves(self, nums: list[int]) -> int:
-        min_num=min(nums)
-        n=len(nums)
+    def minMoves2(self, nums: list[int]) -> int:
         
-        return sum((num-min_num) for num in nums)
+        nums.sort()
+        ans=0
+        for i in range(len(nums)//2):
+            ans+=(nums[-(i+1)]-nums[i])
+        return ans
